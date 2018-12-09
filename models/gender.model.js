@@ -13,7 +13,7 @@ module.export = (sequelize, DataTypes) => {
   });
 
   Model.associate = function(models) {
-    this.Users = this.hasMany(models.User, { foreignKey: "genderId" });
+    this.User = this.hasMany(models.User, { foreignKey: "genderId" });
   };
 
   return Model;

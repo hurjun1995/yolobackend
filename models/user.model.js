@@ -7,8 +7,8 @@ const CONFIG = require("../config/config");
 module.export = (sequelize, DataTypes) => {
   var Model = sequelize.define("User", {
     id: {
-      type: DataTypes.UUIDV4,
-      allowNull: false,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
     email: {
@@ -22,12 +22,25 @@ module.export = (sequelize, DataTypes) => {
       allowNull: false
     },
     dob: DataTypes.DATEONLY,
-    timeOrMoney: DataTypes.BOOLEAN,
     firstName: DataTypes.STRING
   });
 
   Model.associate = function(models) {
+    this.TimeMoney = this.belongsTo(models.TimeMoney, {
+      foreignKey: "timeMoneyId"
+    });
     this.Gender = this.belongsTo(models.Gender, { foreignKey: "genderId" });
+    this.Race = this.belongsTo(models.Race, { foreignKey: "raceId" });
+    this.Education = this.belongsTo(models.Race, {
+      foreignKey: "educationId "
+    });
+    this.MarriageStatus = this.belongsTo(models.MarriageStatus, {
+      foreignKey: "marriageStatusId"
+    });
+    this.Goal = this.hasMany(models.Goal, { foreignKey: "goalId" });
+    this.Happiness = this.hasMany(models.Happiness, {
+      foreignKey: "happinessId"
+    });
   };
 
   Model.beforeSave(async (user, options) => {
@@ -60,7 +73,9 @@ module.export = (sequelize, DataTypes) => {
     let expiration_time = parseInt(CONFIG.jwt_expiration);
     return (
       "Bearer " +
-      jwt.sign({ user_email: this.email }, CONFIG.jwt_encryption, { expiresIn: expiration_time })
+      jwt.sign({ user_email: this.email }, CONFIG.jwt_encryption, {
+        expiresIn: expiration_time
+      })
     );
   };
 

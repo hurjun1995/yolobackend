@@ -1,5 +1,5 @@
 module.export = (sequelize, DataTypes) => {
-  var Model = sequelize.define("Race", {
+  var Model = sequelize.define("TimeMoney", {
     id: {
       type: DataTypes.TINYINT,
       autoIncrement: true,
@@ -13,6 +13,8 @@ module.export = (sequelize, DataTypes) => {
   });
 
   Model.associate = function(models) {
-    this.User = this.hasMany(models.User, { foreignKey: "raceId" });
+    this.User = this.hasMany(models.User, { foreignKey: "timeMoneyId" });
   };
+
+  return Model;
 };
