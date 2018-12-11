@@ -79,5 +79,9 @@ module.export = (sequelize, DataTypes) => {
     );
   };
 
+  Model.prototype.serialize = function() {
+    return this.toJSON();
+  };
+
   return Model;
 };

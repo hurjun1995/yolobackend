@@ -6,7 +6,7 @@
   "author": "Joon Hur",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon index.js"
   },
   "dependencies": {
     "await-to-js": "^2.0.1",
@@ -22,7 +22,8 @@
     "parse-error": "^0.2.0",
     "passport": "^0.4.0",
     "sequelize": "^4.41.2",
-    "sequelize-cli": "^5.4.0"
+    "sequelize-cli": "^5.4.0",
+    "validator": "^10.9.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.6"
