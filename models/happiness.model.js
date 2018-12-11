@@ -1,20 +1,26 @@
-module.export = (sequelize, DataTypes) => {
-  var Model = sequelize.define("Happiness", {
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      primaryKey: true
+module.exports = (sequelize, DataTypes) => {
+  var Model = sequelize.define(
+    "happiness",
+    {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true
+      },
+      scale: {
+        type: DataTypes.TINYINT,
+        allowNull: false,
+        validate: { min: 0, max: 10 }
+      }
+      // createdAt is used as loggedAt
     },
-    scale: {
-      type: DataTypes.TINYINT,
-      allowNull: false,
-      validate: { min: 0, max: 10 }
+    {
+      freezeTableName: true
     }
-    // createdAt is used as loggedAt
-  });
+  );
 
   Model.associate = function(models) {
-    this.User = this.belongsTo(models.User, { foreignKey: "userId" });
+    this.account = this.belongsTo(models.account, { foreignKey: "accountId" });
   };
 
   return Model;

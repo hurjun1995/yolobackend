@@ -1,24 +1,32 @@
-module.export = (sequelize, DataTypes) => {
-  var Model = sequelize.define("Goal", {
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      primaryKey: true
+module.exports = (sequelize, DataTypes) => {
+  var Model = sequelize.define(
+    "goal",
+    {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      isIntrinsic: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+      }
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    isIntrinsic: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false
+    {
+      freezeTableName: true
     }
-  });
+  );
 
   Model.associate = function(models) {
-    this.User = this.belongsTo(models.User, { foreignKey: "userId" });
-    this.GoalCategory = this.belongsTo(models.GaolCategory, {
-      foreignKeys: "goalCategoryId"
+    this.account = this.belongsTo(models.account, { foreignKey: "accountId" });
+    this.goalcategory = this.belongsTo(models.goalcategory, {
+      foreignKeys: "goalcategoryId"
     });
   };
+
+  return Model;
 };
