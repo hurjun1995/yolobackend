@@ -79,6 +79,4 @@ typings/
 .dynamodb/
 
 # VSCode
-.vscode/ 
-
-config/config.js
+.vscode/
