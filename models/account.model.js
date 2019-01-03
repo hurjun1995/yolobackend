@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     this.gender = this.belongsTo(models.gender, { foreignKey: "genderId" });
     this.race = this.belongsTo(models.race, { foreignKey: "raceId" });
     this.education = this.belongsTo(models.education, {
-      foreignKey: "educationId "
+      foreignKey: "educationId"
     });
     this.marriagestatus = this.belongsTo(models.marriagestatus, {
       foreignKey: "marriagestatusId"
