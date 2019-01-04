@@ -6,6 +6,7 @@ const UserController = require("../controllers/user.controller");
 
 const registerJwtStragety = require("../middleware/passportJwt");
 
+router.use(passport.initialize());
 registerJwtStragety(passport);
 router.get("/", function(req, res, next) {
   res.statusCode = 200;

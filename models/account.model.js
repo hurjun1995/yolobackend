@@ -67,7 +67,7 @@ module.exports = (sequelize, DataTypes) => {
     let err, pass;
     if (!this.password) TE("password not set");
 
-    [err, pass] = await to(bcrypt_p.compare(pw, this.password));
+    [err, pass] = await to(bcrypt_p.compare(providedPassword, this.password));
     if (err) TE(err);
 
     if (!pass) TE("invalid password");
@@ -79,14 +79,14 @@ module.exports = (sequelize, DataTypes) => {
     let expiration_time = parseInt(CONFIG.jwt_expiration);
     return (
       "Bearer " +
-      jwt.sign({ account_id: this.email }, CONFIG.jwt_encryption, {
+      jwt.sign({ account_id: this.id }, CONFIG.jwt_encryption, {
         expiresIn: expiration_time
       })
     );
   };
 
   Model.prototype.serialize = function() {
-    return this.toJSON();
+    return {id: this.id, email: this.email}
   };
 
   return Model;

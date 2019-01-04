@@ -27,7 +27,7 @@ module.exports.authUser = async function(userInfo) {
 
 /** Helper functions **/
 
-const _validateUserInfo = function(email) {
+const _validateUserInfo = function(userInfo) {
   if (!userInfo.email) TE("Please enter an email to login");
   if (!userInfo.password) TE("Please enter a password to login");
   if (!validator.isEmail(userInfo.email)) TE("Provided email has invalid format.");

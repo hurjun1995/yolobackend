@@ -1,7 +1,6 @@
 const express = require("express");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
-const passport = require("passport");
 const pe = require("parse-error");
 const cors = require("cors");
 
@@ -13,9 +12,6 @@ const app = express();
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-//Passport
-app.use(passport.initialize());
 
 // Log Environment
 console.log("Environment:", CONFIG.app);
@@ -40,11 +36,6 @@ app.use(cors());
 // Route initializer
 app.use("/v1", v1);
 
-app.use("/", function(req, res) {
-  res.statusCode = 200;
-  res.json({ status: "success", message: "Listening for REST API calls...", data: {} });
-});
-
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   var err = new Error("Not Found");
@@ -58,7 +49,7 @@ app.use((err, req, res, next) => {
   res.locals.error = req.app.get("env") === "developement" ? err : {};
 
   res.status(err.status || 500);
-  res.render("error");
+  res.json({status: err.status, error: err.message});
 });
 
 module.exports = app;
