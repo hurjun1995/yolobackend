@@ -41,7 +41,7 @@ module.exports.remove = async function(req, res) {
   [err, user] = await to(user.destroy());
   if (err) return ReE(res, "Error occured trying to delete the user");
 
-  return ReS(res, { message: "Deleted User" }, 204);
+  return ReS(res, { message: "Deleted User", id: user.id }, 202);
 };
 
 module.exports.login = async function(req, res) {
