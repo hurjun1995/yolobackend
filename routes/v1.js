@@ -2,7 +2,7 @@ const express = require("express");
 const passport = require("passport");
 
 const router = express.Router();
-const UserController = require("../controllers/user.controller");
+const UserController = require("../controllers/account.controller");
 
 const registerJwtStragety = require("../middleware/passportJwt");
 
