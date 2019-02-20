@@ -22,9 +22,9 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Model.associate = function(models) {
-    this.account = this.belongsTo(models.account, { foreignKey: "accountId" });
-    this.goalcategory = this.belongsTo(models.goalcategory, {
-      foreignKeys: "goalcategoryId"
+    this.Account = this.belongsTo(models.Account, { foreignKey: "account_id" });
+    this.GoalCategory = this.belongsTo(models.GoalCategory, {
+      foreignKeys: "goal_category_id"
     });
   };
 

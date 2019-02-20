@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Model.associate = function(models) {
-    this.account = this.belongsTo(models.account, { foreignKey: "accountId" });
+    this.Account = this.belongsTo(models.Account, { foreignKey: "account_id" });
   };
 
   return Model;

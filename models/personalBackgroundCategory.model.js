@@ -1,15 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
   var Model = sequelize.define(
-    "education",
+    "personal_background_category",
     {
       id: {
         type: DataTypes.TINYINT,
-        autoIncrement: true,
         primaryKey: true
       },
       type: {
         type: DataTypes.STRING,
-        unique: true,
         allowNull: false
       }
     },
@@ -19,7 +17,12 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Model.associate = function(models) {
-    this.account = this.hasMany(models.account, { foreignKey: "educationId" });
+    this.AccountPersonalBackground = this.hasMany(models.AccountPersonalBackground, {
+      foreignKey: "type_id"
+    });
+    this.PersonalBackground = this.hasMany(models.PersonalBackground, {
+      foreignKey: "type_id"
+    });
   };
 
   return Model;
