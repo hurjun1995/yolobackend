@@ -27,25 +27,18 @@ module.exports = (sequelize, DataTypes) => {
       firstName: DataTypes.STRING
     },
     {
+      underscored: true,
       freezeTableName: true
     }
   );
 
   Model.associate = function(models) {
-    this.timemoney = this.belongsTo(models.timemoney, {
-      foreignKey: "timemoneyId"
+    this.PersonalBackground = this.belongsToMany(models.PersonalBackground, {
+      through: models.AccountPersonalBackground
     });
-    this.gender = this.belongsTo(models.gender, { foreignKey: "genderId" });
-    this.race = this.belongsTo(models.race, { foreignKey: "raceId" });
-    this.education = this.belongsTo(models.education, {
-      foreignKey: "educationId"
-    });
-    this.marriagestatus = this.belongsTo(models.marriagestatus, {
-      foreignKey: "marriagestatusId"
-    });
-    this.goal = this.hasMany(models.goal, { foreignKey: "accountId" });
-    this.happiness = this.hasMany(models.happiness, {
-      foreignKey: "accountId"
+    this.Goal = this.hasMany(models.Goal, { foreignKey: "account_id" });
+    this.Happiness = this.hasMany(models.Happiness, {
+      foreignKey: "account_id"
     });
   };
 
@@ -86,7 +79,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Model.prototype.serialize = function() {
-    return {id: this.id, email: this.email}
+    return { id: this.id, email: this.email };
   };
 
   return Model;

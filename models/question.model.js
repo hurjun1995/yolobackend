@@ -1,25 +1,28 @@
 module.exports = (sequelize, DataTypes) => {
   var Model = sequelize.define(
-    "marriagestatus",
+    "question",
     {
       id: {
-        type: DataTypes.TINYINT,
+        type: DataTypes.SMALLINT,
         autoIncrement: true,
         primaryKey: true
       },
-      status: {
+      text: {
         type: DataTypes.STRING,
-        unique: true,
-        allowNull: false
+        allowNull: false,
+        unique: true
       }
     },
     {
+      underscored: true,
       freezeTableName: true
     }
   );
 
   Model.associate = function(models) {
-    this.account = this.hasMany(models.account, { foreignKey: "marriagestatusId" });
+    this.GoalSurvey = this.belongsToMany(models.GoalSurvey, {
+      through: models.GoalSurveyQuestion
+    });
   };
 
   return Model;

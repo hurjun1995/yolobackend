@@ -27,7 +27,7 @@ models.sequelize
   });
 
 if ((CONFIG.app = "dev")) {
-  models.sequelize.sync();
+  models.sequelize.sync({ force: true });
 }
 
 // CORS
@@ -49,7 +49,7 @@ app.use((err, req, res, next) => {
   res.locals.error = req.app.get("env") === "developement" ? err : {};
 
   res.status(err.status || 500);
-  res.json({status: err.status, error: err.message});
+  res.json({ status: err.status, error: err.message });
 });
 
 module.exports = app;

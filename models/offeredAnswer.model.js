@@ -1,13 +1,15 @@
+const { GOAL_SURVEY_QUESTION_OFFERED_ANSWER } = require("../constants");
+
 module.exports = (sequelize, DataTypes) => {
   var Model = sequelize.define(
-    "goal_category",
+    "offered_answer",
     {
       id: {
-        type: DataTypes.TINYINT,
+        type: DataTypes.SMALLINT,
         autoIncrement: true,
         primaryKey: true
       },
-      name: {
+      text: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
@@ -15,13 +17,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       underscored: true,
-      freezeTableName: true,
-      timestamps: false
+      freezeTableName: true
     }
   );
 
   Model.associate = function(models) {
-    this.Goal = this.hasMany(models.Goal, { foreignKey: "goal_category_id" });
+    this.GoalSurveyQuestion = this.belongsToMany(models.GoalSurveyQuestion, {
+      through: GOAL_SURVEY_QUESTION_OFFERED_ANSWER,
+      timestamps: false
+    });
   };
 
   return Model;
