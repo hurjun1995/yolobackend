@@ -10,13 +10,10 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false
-      },
-      isIntrinsic: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false
       }
     },
     {
+      underscored: true,
       freezeTableName: true
     }
   );

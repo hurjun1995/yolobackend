@@ -2,21 +2,14 @@ module.exports = (sequelize, DataTypes) => {
   var Model = sequelize.define(
     "account_personal_background",
     {
-      account_id: {
-        type: DataTypes.UUID,
-        primaryKey: true
-      },
-      personal_background_id: {
-        type: DataTypes.TINYINT,
-        primaryKey: true
-      },
       type_id: {
-        type: DataTypes.TINYINT,
-        primaryKey: true
+        type: DataTypes.TINYINT
       }
     },
     {
-      freezeTableName: true
+      underscored: true,
+      freezeTableName: true,
+      timestamps: false
     }
   );
 

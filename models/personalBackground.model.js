@@ -13,14 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     {
-      freezeTableName: true
+      underscored: true,
+      freezeTableName: true,
+      timestamps: false
     }
   );
 
   Model.associate = function(models) {
     this.Account = this.belongsToMany(models.Account, {
-      through: { model: models.AccountPersonalBackground },
-      foreignKey: "personal_background_id"
+      through: models.AccountPersonalBackground
     });
     this.PersonalBackgroundCategory = this.belongsTo(models.PersonalBackgroundCategory, {
       foreignKey: "type_id"

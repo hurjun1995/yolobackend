@@ -27,14 +27,14 @@ module.exports = (sequelize, DataTypes) => {
       firstName: DataTypes.STRING
     },
     {
+      underscored: true,
       freezeTableName: true
     }
   );
 
   Model.associate = function(models) {
     this.PersonalBackground = this.belongsToMany(models.PersonalBackground, {
-      through: { model: models.AccountPersonalBackground },
-      foreignKey: "account_id"
+      through: models.AccountPersonalBackground
     });
     this.Goal = this.hasMany(models.Goal, { foreignKey: "account_id" });
     this.Happiness = this.hasMany(models.Happiness, {

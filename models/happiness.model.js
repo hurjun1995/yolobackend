@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       // createdAt is used as loggedAt
     },
     {
+      underscored: true,
       freezeTableName: true
     }
   );
