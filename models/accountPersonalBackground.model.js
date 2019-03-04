@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Model.associate = models => {
+  Model.associate = function(models) {
     this.PersonalBackgroundCategory = this.belongsTo(models.PersonalBackgroundCategory, {
       foreignKey: 'type_id'
     });

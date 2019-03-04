@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Model.associate = models => {
+  Model.associate = function(models) {
     this.Goal = this.hasMany(models.Goal, { foreignKey: 'goal_category_id' });
   };
 

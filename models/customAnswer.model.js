@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Model.associate = models => {
+  Model.associate = function(models) {
     this.GoalSurveyQuestion = this.belongsTo(models.GoalSurveyQuestion);
   };
 

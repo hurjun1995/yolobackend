@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Model.associate = models => {
+  Model.associate = function(models) {
     this.Account = this.belongsTo(models.Account, { foreignKey: 'account_id' });
     this.GoalCategory = this.belongsTo(models.GoalCategory, {
       foreignKeys: 'goal_category_id'

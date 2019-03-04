@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Model.associate = models => {
+  Model.associate = function(models) {
     this.OfferedAnswer = this.belongsToMany(models.OfferedAnswer, {
       through: GOAL_SURVEY_QUESTION_OFFERED_ANSWER,
       timestamps: false

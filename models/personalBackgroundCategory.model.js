@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Model.associate = models => {
+  Model.associate = function(models) {
     this.AccountPersonalBackground = this.hasMany(models.AccountPersonalBackground, {
       foreignKey: 'type_id'
     });

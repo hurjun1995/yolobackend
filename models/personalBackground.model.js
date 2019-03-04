@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Model.associate = models => {
+  Model.associate = function(models) {
     this.Account = this.belongsToMany(models.Account, {
       through: models.AccountPersonalBackground
     });

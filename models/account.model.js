@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Model.associate = models => {
+  Model.associate = function(models) {
     this.PersonalBackground = this.belongsToMany(models.PersonalBackground, {
       through: models.AccountPersonalBackground
     });
@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
-  Model.beforeSave(async (user, options) => {
+  Model.beforeSave(async function(user, options) {
     let err;
     if (user.changed('password')) {
       let salt;
@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  Model.prototype.comparePassword = async providedPassword => {
+  Model.prototype.comparePassword = async function(providedPassword) {
     if (!this.password) TE('password not set');
 
     const [err, pass] = await to(bcryptPromise.compare(providedPassword, this.password));
@@ -68,14 +68,14 @@ module.exports = (sequelize, DataTypes) => {
     return this;
   };
 
-  Model.prototype.getJWT = () => {
+  Model.prototype.getJWT = function() {
     const expirationTime = parseInt(CONFIG.jwt_expiration);
     return `Bearer ${jwt.sign({ account_id: this.id }, CONFIG.jwt_encryption, {
       expiresIn: expirationTime
     })}`;
   };
 
-  Model.prototype.serialize = () => {
+  Model.prototype.serialize = function() {
     return { id: this.id, email: this.email };
   };
 

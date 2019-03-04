@@ -2,7 +2,7 @@ const authService = require('../services/auth.service');
 const { to, ReE, ReS } = require('../services/util.service');
 
 module.exports.create = async (req, res) => {
-  const body = req.body;
+  const { body } = req;
 
   if (!body.email) {
     return ReE(res, 'Please enter an email to register');
@@ -10,24 +10,20 @@ module.exports.create = async (req, res) => {
   if (!body.password) {
     return ReE(res, 'Please enter a password to register');
   }
-  let err;
-  let user;
-  [err, user] = await to(authService.createUser(body));
+  const [err, user] = await to(authService.createUser(body));
   if (err) return ReE(res, err, 422);
   return ReS(res, { user: user.serialize() });
 };
 
 module.exports.get = async (req, res) => {
-  const user = req.user; // this user is User model object provided by passportJS
+  const { user } = req; // this user is User model object provided by passportJS
   return ReS(res, { user: user.serialize() });
 };
 
 module.exports.update = async (req, res) => {
-  let user;
-  let data;
   let err;
-  user = req.user;
-  data = req.body;
+  let { user } = req;
+  const data = req.body;
   user.set(data);
 
   [err, user] = await to(user.save());
@@ -38,9 +34,8 @@ module.exports.update = async (req, res) => {
 };
 
 module.exports.remove = async (req, res) => {
-  let user;
-  const err;
-  user = req.user;
+  let err;
+  let { user } = req;
 
   [err, user] = await to(user.destroy());
   if (err) return ReE(res, 'Error occured trying to delete the user');

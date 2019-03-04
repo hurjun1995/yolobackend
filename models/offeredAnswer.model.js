@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Model.associate = models => {
+  Model.associate = function(models) {
     this.GoalSurveyQuestion = this.belongsToMany(models.GoalSurveyQuestion, {
       through: GOAL_SURVEY_QUESTION_OFFERED_ANSWER,
       timestamps: false
