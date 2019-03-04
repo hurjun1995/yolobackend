@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  var Model = sequelize.define(
-    "custom_answer",
+  const Model = sequelize.define(
+    'custom_answer',
     {
       id: {
         type: DataTypes.SMALLINT,
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Model.associate = function(models) {
+  Model.associate = models => {
     this.GoalSurveyQuestion = this.belongsTo(models.GoalSurveyQuestion);
   };
 

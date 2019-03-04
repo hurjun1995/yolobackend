@@ -1,12 +1,12 @@
-const bcrypt = require("bcrypt");
-const bcrypt_p = require("bcrypt-promise");
-const jwt = require("jsonwebtoken");
-const { TE, to } = require("../services/util.service");
-const CONFIG = require("../config/config");
+const bcrypt = require('bcrypt');
+const bcryptPromise = require('bcrypt-promise');
+const jwt = require('jsonwebtoken');
+const { TE, to } = require('../services/util.service');
+const CONFIG = require('../config/config');
 
 module.exports = (sequelize, DataTypes) => {
-  var Model = sequelize.define(
-    "account",
+  const Model = sequelize.define(
+    'account',
     {
       id: {
         type: DataTypes.UUID,
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
-        validate: { isEmail: { msg: "email format invalid." } }
+        validate: { isEmail: { msg: 'email format invalid.' } }
       },
       password: {
         type: DataTypes.STRING,
@@ -32,20 +32,21 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Model.associate = function(models) {
+  Model.associate = models => {
     this.PersonalBackground = this.belongsToMany(models.PersonalBackground, {
       through: models.AccountPersonalBackground
     });
-    this.Goal = this.hasMany(models.Goal, { foreignKey: "account_id" });
+    this.Goal = this.hasMany(models.Goal, { foreignKey: 'account_id' });
     this.Happiness = this.hasMany(models.Happiness, {
-      foreignKey: "account_id"
+      foreignKey: 'account_id'
     });
   };
 
   Model.beforeSave(async (user, options) => {
     let err;
-    if (user.changed("password")) {
-      let salt, hash;
+    if (user.changed('password')) {
+      let salt;
+      let hash;
       [err, salt] = await to(bcrypt.genSalt(10));
       if (err) TE(err.message, true);
 
@@ -56,29 +57,25 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  Model.prototype.comparePassword = async function(providedPassword) {
-    let err, pass;
-    if (!this.password) TE("password not set");
+  Model.prototype.comparePassword = async providedPassword => {
+    if (!this.password) TE('password not set');
 
-    [err, pass] = await to(bcrypt_p.compare(providedPassword, this.password));
+    const [err, pass] = await to(bcryptPromise.compare(providedPassword, this.password));
     if (err) TE(err);
 
-    if (!pass) TE("invalid password");
+    if (!pass) TE('invalid password');
 
     return this;
   };
 
-  Model.prototype.getJWT = function() {
-    let expiration_time = parseInt(CONFIG.jwt_expiration);
-    return (
-      "Bearer " +
-      jwt.sign({ account_id: this.id }, CONFIG.jwt_encryption, {
-        expiresIn: expiration_time
-      })
-    );
+  Model.prototype.getJWT = () => {
+    const expirationTime = parseInt(CONFIG.jwt_expiration);
+    return `Bearer ${jwt.sign({ account_id: this.id }, CONFIG.jwt_encryption, {
+      expiresIn: expirationTime
+    })}`;
   };
 
-  Model.prototype.serialize = function() {
+  Model.prototype.serialize = () => {
     return { id: this.id, email: this.email };
   };
 

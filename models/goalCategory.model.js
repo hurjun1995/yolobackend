@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  var Model = sequelize.define(
-    "goal_category",
+  const Model = sequelize.define(
+    'goal_category',
     {
       id: {
         type: DataTypes.TINYINT,
@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Model.associate = function(models) {
-    this.Goal = this.hasMany(models.Goal, { foreignKey: "goal_category_id" });
+  Model.associate = models => {
+    this.Goal = this.hasMany(models.Goal, { foreignKey: 'goal_category_id' });
   };
 
   return Model;

@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  var Model = sequelize.define(
-    "happiness",
+  const Model = sequelize.define(
+    'happiness',
     {
       id: {
         type: DataTypes.UUID,
@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Model.associate = function(models) {
-    this.Account = this.belongsTo(models.Account, { foreignKey: "account_id" });
+  Model.associate = models => {
+    this.Account = this.belongsTo(models.Account, { foreignKey: 'account_id' });
   };
 
   return Model;

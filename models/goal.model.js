@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  var Model = sequelize.define(
-    "goal",
+  const Model = sequelize.define(
+    'goal',
     {
       id: {
         type: DataTypes.UUID,
@@ -18,10 +18,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Model.associate = function(models) {
-    this.Account = this.belongsTo(models.Account, { foreignKey: "account_id" });
+  Model.associate = models => {
+    this.Account = this.belongsTo(models.Account, { foreignKey: 'account_id' });
     this.GoalCategory = this.belongsTo(models.GoalCategory, {
-      foreignKeys: "goal_category_id"
+      foreignKeys: 'goal_category_id'
     });
   };
 

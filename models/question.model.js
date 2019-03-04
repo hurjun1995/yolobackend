@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  var Model = sequelize.define(
-    "question",
+  const Model = sequelize.define(
+    'question',
     {
       id: {
         type: DataTypes.SMALLINT,
@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Model.associate = function(models) {
+  Model.associate = models => {
     this.GoalSurvey = this.belongsToMany(models.GoalSurvey, {
       through: models.GoalSurveyQuestion
     });

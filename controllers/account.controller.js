@@ -1,28 +1,31 @@
-const authService = require("../services/auth.service");
-const { to, ReE, ReS } = require("../services/util.service");
+const authService = require('../services/auth.service');
+const { to, ReE, ReS } = require('../services/util.service');
 
-module.exports.create = async function(req, res) {
+module.exports.create = async (req, res) => {
   const body = req.body;
 
   if (!body.email) {
-    return ReE(res, "Please enter an email to register");
-  } else if (!body.password) {
-    return ReE(res, "Please enter a password to register");
-  } else {
-    let err, user;
-    [err, user] = await to(authService.createUser(body));
-    if (err) return ReE(res, err, 422);
-    return ReS(res, { user: user.serialize() });
+    return ReE(res, 'Please enter an email to register');
   }
-};
-
-module.exports.get = async function(req, res) {
-  let user = req.user; // this user is User model object provided by passportJS
+  if (!body.password) {
+    return ReE(res, 'Please enter a password to register');
+  }
+  let err;
+  let user;
+  [err, user] = await to(authService.createUser(body));
+  if (err) return ReE(res, err, 422);
   return ReS(res, { user: user.serialize() });
 };
 
-module.exports.update = async function(req, res) {
-  let user, data, err;
+module.exports.get = async (req, res) => {
+  const user = req.user; // this user is User model object provided by passportJS
+  return ReS(res, { user: user.serialize() });
+};
+
+module.exports.update = async (req, res) => {
+  let user;
+  let data;
+  let err;
   user = req.user;
   data = req.body;
   user.set(data);
@@ -34,19 +37,19 @@ module.exports.update = async function(req, res) {
   return ReS(res, { message: `Updated User: ${user.email}` });
 };
 
-module.exports.remove = async function(req, res) {
-  let user, err;
+module.exports.remove = async (req, res) => {
+  let user;
+  const err;
   user = req.user;
 
   [err, user] = await to(user.destroy());
-  if (err) return ReE(res, "Error occured trying to delete the user");
+  if (err) return ReE(res, 'Error occured trying to delete the user');
 
-  return ReS(res, { message: "Deleted User", id: user.id }, 202);
+  return ReS(res, { message: 'Deleted User', id: user.id }, 202);
 };
 
-module.exports.login = async function(req, res) {
-  let err, user;
-  [err, user] = await to(authService.authUser(req.body));
+module.exports.login = async (req, res) => {
+  const [err, user] = await to(authService.authUser(req.body));
   if (err) return ReE(res, err, 402);
 
   return ReS(res, { token: user.getJWT(), user: user.serialize() });

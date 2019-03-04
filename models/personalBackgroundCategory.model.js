@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  var Model = sequelize.define(
-    "personal_background_category",
+  const Model = sequelize.define(
+    'personal_background_category',
     {
       id: {
         type: DataTypes.TINYINT,
@@ -18,12 +18,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Model.associate = function(models) {
+  Model.associate = models => {
     this.AccountPersonalBackground = this.hasMany(models.AccountPersonalBackground, {
-      foreignKey: "type_id"
+      foreignKey: 'type_id'
     });
     this.PersonalBackground = this.hasMany(models.PersonalBackground, {
-      foreignKey: "type_id"
+      foreignKey: 'type_id'
     });
   };
 

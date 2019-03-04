@@ -1,8 +1,9 @@
-const fs = require("fs");
-const path = require("path");
-const Sequelize = require("sequelize");
+const fs = require('fs');
+const path = require('path');
+const Sequelize = require('sequelize');
+
 const basename = path.basename(__filename);
-const CONFIG = require("../config/config");
+const CONFIG = require('../config/config');
 
 const db = {};
 const sequelize = new Sequelize(CONFIG.db_name, CONFIG.db_user, CONFIG.db_password, {
@@ -15,14 +16,14 @@ const sequelize = new Sequelize(CONFIG.db_name, CONFIG.db_user, CONFIG.db_passwo
 // read all models
 fs.readdirSync(__dirname)
   .filter(file => {
-    return file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js";
+    return file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js';
   })
   .forEach(file => {
     const model = sequelize.import(path.join(__dirname, file));
     const modelName = model.name
-      .split("_")
+      .split('_')
       .map(s => s.charAt(0).toUpperCase() + s.slice(1))
-      .join("");
+      .join('');
     db[modelName] = model;
   });
 

@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  var Model = sequelize.define(
-    "account_personal_background",
+  const Model = sequelize.define(
+    'account_personal_background',
     {
       type_id: {
         type: DataTypes.TINYINT
@@ -13,9 +13,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Model.associate = function(models) {
+  Model.associate = models => {
     this.PersonalBackgroundCategory = this.belongsTo(models.PersonalBackgroundCategory, {
-      foreignKey: "type_id"
+      foreignKey: 'type_id'
     });
   };
 
