@@ -10,6 +10,22 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      log_time: {
+        type: DataTypes.TIME,
+        allowNull: false
+      },
+      reminder_minute: {
+        type: DataTypes.TINYINT,
+        allowNull: false,
+        validate: {
+          validateReminderMinute(value) {
+            const validMinutes = new Set([10, 20, 30, 40, 50, 60]);
+            if (!validMinutes.has(value)) {
+              throw new Error(`${value} isn't valid reminder minute: 10, 20, 30, 40, 50, 60`);
+            }
+          }
+        }
       }
     },
     {
