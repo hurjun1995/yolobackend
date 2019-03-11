@@ -1,10 +1,11 @@
-const { account: Account } = require("../models");
-const validator = require("validator");
-const { to, TE } = require("./util.service");
+const validator = require('validator');
+const { Account } = require('../models');
+const { to, TE } = require('./util.service');
 
 module.exports.createUser = async function(userInfo) {
   _validateUserInfo(userInfo);
-  let user, err;
+  let user;
+  let err;
   [err, user] = await to(Account.create(userInfo));
   if (err) TE(err.message);
 
@@ -13,11 +14,12 @@ module.exports.createUser = async function(userInfo) {
 
 module.exports.authUser = async function(userInfo) {
   _validateUserInfo(userInfo);
-  let user, err;
+  let user;
+  let err;
   [err, user] = await to(Account.findOne({ where: { email: userInfo.email } }));
   if (err) TE(err.message);
 
-  if (!user) TE("Provided email is not registered");
+  if (!user) TE('Provided email is not registered');
 
   [err, user] = await to(user.comparePassword(userInfo.password));
   if (err) TE(err.message);
@@ -25,11 +27,10 @@ module.exports.authUser = async function(userInfo) {
   return user;
 };
 
-/** Helper functions **/
+/** Helper functions * */
 
 const _validateUserInfo = function(userInfo) {
-  if (!userInfo.email) TE("Please enter an email to login");
-  if (!userInfo.password) TE("Please enter a password to login");
-  if (!validator.isEmail(userInfo.email)) TE("Provided email has invalid format.");
-  return;
+  if (!userInfo.email) TE('Please enter an email to login');
+  if (!userInfo.password) TE('Please enter a password to login');
+  if (!validator.isEmail(userInfo.email)) TE('Provided email has invalid format.');
 };

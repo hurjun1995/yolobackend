@@ -3,6 +3,7 @@
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": ["error"],
-    "func-names": 0
+    "func-names": 0,
+    "no-underscore-dangle": 0
   }
 }
