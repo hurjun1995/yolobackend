@@ -1,25 +1,22 @@
 module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.define(
-    'custom_answer',
+    'survey_type',
     {
       id: {
         type: DataTypes.SMALLINT,
         autoIncrement: true,
         primaryKey: true
       },
-      text: {
+      type: {
         type: DataTypes.STRING
       }
     },
     {
       underscored: true,
-      freezeTableName: true
+      freezeTableName: true,
+      timestamps: false
     }
   );
-
-  Model.associate = function(models) {
-    this.GoalSurveyQuestion = this.belongsTo(models.GoalSurveyQuestion);
-  };
 
   return Model;
 };
