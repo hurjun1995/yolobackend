@@ -1,15 +1,11 @@
 module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.define(
-    'question',
+    'survey',
     {
       id: {
         type: DataTypes.SMALLINT,
         autoIncrement: true,
         primaryKey: true
-      },
-      text: {
-        type: DataTypes.STRING,
-        allowNull: false
       }
     },
     {
@@ -17,6 +13,13 @@ module.exports = (sequelize, DataTypes) => {
       freezeTableName: true
     }
   );
+
+  Model.associate = function(models) {
+    this.SurveyType = this.belongsTo(models.SurveyType, { foreign_key: 'survey_type_id' });
+    this.QuestionVersion = this.belongsToMany(models.QuestionVersion, {
+      through: models.SurveyQuestionVersion
+    });
+  };
 
   return Model;
 };

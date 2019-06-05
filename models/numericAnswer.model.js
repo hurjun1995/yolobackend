@@ -1,15 +1,16 @@
 module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.define(
-    'question',
+    'numeric_answer',
     {
       id: {
         type: DataTypes.SMALLINT,
         autoIncrement: true,
         primaryKey: true
       },
-      text: {
-        type: DataTypes.STRING,
-        allowNull: false
+      value: {
+        type: DataTypes.SMALLINT,
+        allowNull: false,
+        unique: true
       }
     },
     {
@@ -17,6 +18,12 @@ module.exports = (sequelize, DataTypes) => {
       freezeTableName: true
     }
   );
+
+  Model.associate = function(models) {
+    this.PredefinedAnswer = this.belongsTo(models.PredefinedAnswer, {
+      foreignKey: 'predefined_answer_id'
+    });
+  };
 
   return Model;
 };

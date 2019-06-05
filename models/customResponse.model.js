@@ -1,8 +1,6 @@
-const { GOAL_SURVEY_QUESTION_OFFERED_ANSWER } = require('../constants');
-
 module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.define(
-    'offered_answer',
+    'custom_response',
     {
       id: {
         type: DataTypes.SMALLINT,
@@ -10,9 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true
       },
       text: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
+        type: DataTypes.TEXT
       }
     },
     {
@@ -22,9 +18,8 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Model.associate = function(models) {
-    this.GoalSurveyQuestion = this.belongsToMany(models.GoalSurveyQuestion, {
-      through: GOAL_SURVEY_QUESTION_OFFERED_ANSWER,
-      timestamps: false
+    this.SurveyQuestionVersion = this.belongsTo(models.SurveyQuestionVersion, {
+      foreignKey: 'survey_question_version_id'
     });
   };
 

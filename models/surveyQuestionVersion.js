@@ -1,20 +1,16 @@
 module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.define(
-    'question',
+    'survey_question_version',
     {
       id: {
         type: DataTypes.SMALLINT,
-        autoIncrement: true,
         primaryKey: true
-      },
-      text: {
-        type: DataTypes.STRING,
-        allowNull: false
       }
     },
     {
       underscored: true,
-      freezeTableName: true
+      freezeTableName: true,
+      timestamps: false
     }
   );
 

@@ -33,9 +33,6 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Model.associate = function(models) {
-    this.PersonalBackground = this.belongsToMany(models.PersonalBackground, {
-      through: models.AccountPersonalBackground
-    });
     this.Goal = this.hasMany(models.Goal, { foreignKey: 'account_id' });
     this.Happiness = this.hasMany(models.Happiness, {
       foreignKey: 'account_id'

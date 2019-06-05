@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.define(
-    'goal_survey',
+    'predefined_answer',
     {
       id: {
         type: DataTypes.SMALLINT,
@@ -15,8 +15,9 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Model.associate = function(models) {
-    this.Goal = this.belongsTo(models.Goal);
-    this.Question = this.belongsToMany(models.Question, { through: models.GoalSurveyQuestion });
+    this.QuestionVersion = this.belongsToMany(models.QuestionVersion, {
+      through: models.QuestionVersionPredefinedAnswer
+    });
   };
 
   return Model;
