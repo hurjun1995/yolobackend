@@ -16,7 +16,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Log Environment
 console.log('Environment:', CONFIG.app);
-
 // DATABASE
 models.sequelize
   .authenticate()
