@@ -4,12 +4,12 @@ FROM node:10
 RUN groupadd -g 999 appuser && \
   useradd -r -u 999 -g appuser appuser
 
-RUN mkdir -p /home/appuser/yolobackend/node_modules && \
-  chown -R appuser:appuser /home/appuser/yolobackend
+ENV HOME=/home/appuser
 
-## set the working directory
-WORKDIR /home/appuser/yolobackend
+RUN mkdir -p ${HOME}/yolobackend/node_modules && \
+  chown -R appuser:appuser ${HOME}/yolobackend
 
+## user should be root when installing mysql-client
 RUN set -ex; \
   apt-get update; \
   apt-get install -y --no-install-recommends \
@@ -24,6 +24,9 @@ COPY yarn.lock ./
 
 ## switch user from root to user before running yarn install
 ##USER joon
+
+## set the working directory
+WORKDIR ${HOME}/yolobackend
 
 RUN yarn install
 

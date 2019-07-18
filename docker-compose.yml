@@ -17,6 +17,8 @@ services:
     build: .
     depends_on:
       - db
+    volume:
+      - .:/home/appuser/yolobackend
     ports:
       - '8080:8080'
       - '9229:9229'
