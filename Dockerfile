@@ -4,10 +4,9 @@ FROM node:10
 RUN groupadd -g 999 appuser && \
   useradd -r -u 999 -g appuser appuser
 
-ENV HOME=/home/appuser
-
+ENV HOME /home/appuser
 RUN mkdir -p ${HOME}/yolobackend/node_modules && \
-  chown -R appuser:appuser ${HOME}/yolobackend
+  chown -R appuser:appuser ${HOME}/*
 
 ## user should be root when installing mysql-client
 RUN set -ex; \
@@ -17,16 +16,15 @@ RUN set -ex; \
 
 USER appuser
 
+## set the working directory
+WORKDIR ${HOME}/yolobackend
+
 ## Docker's caching mechanism will help skip reinstalling our node modules
 ## if package.json isn't modified
-COPY package.json ./
-COPY yarn.lock ./
+COPY package.json yarn.lock ./
 
 ## switch user from root to user before running yarn install
 ##USER joon
-
-## set the working directory
-WORKDIR ${HOME}/yolobackend
 
 RUN yarn install
 
@@ -48,7 +46,5 @@ ENV JWT_EXPIRATION=10000
 COPY --chown=appuser:appuser . .
 
 EXPOSE 8080
-
-USER root
 
 CMD ["./docker_entrypoint.sh"]
