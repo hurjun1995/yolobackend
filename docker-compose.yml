@@ -21,3 +21,6 @@ services:
       - '8080:8080'
       - '9229:9229'
     command: ['./docker_entrypoint.sh']
+    volumes:
+      - .:/home/appuser/yolobackend/
+      - /home/appuser/yolobackend/node_modules
