@@ -1,4 +1,6 @@
-const { account: Account } = require('../models');
+const models = require('../models');
+
+const Account = models.Account;
 const validator = require('validator');
 const { to, TE } = require('./util.service');
 
