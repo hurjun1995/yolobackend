@@ -1,6 +1,7 @@
 /**
  * group of accounts
  * each group can represent a study
+ * first group with id 1 should be "every account"
  */
 
 module.exports = (sequelize, DataTypes) => {
@@ -26,6 +27,9 @@ module.exports = (sequelize, DataTypes) => {
   Model.associate = function(models) {
     this.Account = this.belongsToMany(models.Account, {
       through: models.AccountGroup
+    });
+    this.Survey = this.belongsToMany(models.Survey, {
+      through: models.SurveyGroup
     });
   };
 

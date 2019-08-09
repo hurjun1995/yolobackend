@@ -12,6 +12,8 @@ services:
       test: 'exit 0'
     ports:
       - '127.0.0.1:3316:3306/tcp'
+    volumes:
+      - db-data:/var/lib/mysql
 
   be:
     build: .
@@ -24,3 +26,5 @@ services:
     volumes:
       - .:/home/appuser/yolobackend/
       - /home/appuser/yolobackend/node_modules
+volumes:
+  db-data:
