@@ -19,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     this.QuestionVersion = this.belongsToMany(models.QuestionVersion, {
       through: models.SurveyQuestionVersion
     });
+    this.Group = this.belongsToMany(models.Group, {
+      through: models.SurveyGroup
+    });
   };
 
   return Model;

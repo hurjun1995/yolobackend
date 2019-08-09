@@ -37,6 +37,9 @@ module.exports = (sequelize, DataTypes) => {
     this.Happiness = this.hasMany(models.Happiness, {
       foreignKey: 'account_id'
     });
+    this.group = this.belongsToMany(models.Group, {
+      through: models.AccountGroup
+    });
   };
 
   Model.beforeSave(async function(user, options) {

@@ -16,7 +16,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Log Environment
 console.log('Environment:', CONFIG.app);
-
 // DATABASE
 models.sequelize
   .authenticate()
@@ -27,9 +26,9 @@ models.sequelize
     console.error('Unable to connect to database:', CONFIG.db_name, err);
   });
 
-if (CONFIG.app === 'dev') {
-  models.sequelize.sync({ force: true });
-}
+// if (CONFIG.app === 'dev') {
+//   models.sequelize.sync({ force: true });
+// }
 
 // CORS
 app.use(cors());
