@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const pe = require('parse-error');
 const cors = require('cors');
 
-const CONFIG = require('./config/config');
+const CONFIG = require('./config/myConfig');
 const v1 = require('./routes/v1');
 const models = require('./models');
 
