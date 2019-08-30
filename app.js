@@ -7,10 +7,11 @@ const cors = require('cors');
 const CONFIG = require('./config/myConfig');
 const v1 = require('./routes/v1');
 const models = require('./models');
+const { DEV } = require('./constants');
 
 const app = express();
 
-app.use(logger('dev'));
+app.use(logger(DEV));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -42,7 +43,7 @@ app.use((req, res, next) => {
 // error handler
 app.use((err, req, res, next) => {
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'developement' ? err : {};
+  res.locals.error = req.app.get('env') === DEV ? err : {};
 
   res.status(err.status || 500);
   res.json({ status: err.status, error: err.message });

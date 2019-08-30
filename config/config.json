@@ -1,5 +1,5 @@
 {
-  "development": {
+  "dev": {
     "username": "joon_admin",
     "password": "DevUser123!#",
     "database": "yolotestdatabase",
