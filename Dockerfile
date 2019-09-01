@@ -29,7 +29,7 @@ COPY package.json yarn.lock ./
 RUN yarn install
 
 ## set env variables
-ENV APP=dev
+ENV APP=development
 ENV PORT=8080
 
 ENV DB_DIALECT=mysql
