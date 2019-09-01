@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const bcryptPromise = require('bcrypt-promise');
 const jwt = require('jsonwebtoken');
 const { TE, to } = require('../services/util.service');
-const CONFIG = require('../config/config');
+const CONFIG = require('../config/myConfig');
 
 module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.define(

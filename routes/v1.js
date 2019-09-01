@@ -3,6 +3,7 @@ const passport = require('passport');
 
 const router = express.Router();
 const UserController = require('../controllers/account.controller');
+const GoalController = require('../controllers/goal.controller')
 
 const registerJwtStragety = require('../middleware/passportJwt');
 
@@ -22,5 +23,7 @@ router.put('/user', passport.authenticate('jwt', { session: false }), UserContro
 router.delete('/user', passport.authenticate('jwt', { session: false }), UserController.remove);
 router.post('/user', UserController.create);
 router.post('/user/login', UserController.login);
+
+router.post('/goal', passport.authenticate('jwt', {session: false}), GoalController.create);
 
 module.exports = router;
