@@ -1,13 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.define(
     'predefined_response',
-    {
-      id: {
-        type: DataTypes.SMALLINT,
-        autoIncrement: true,
-        primaryKey: true
-      }
-    },
+    {},
     {
       underscored: true,
       freezeTableName: true
