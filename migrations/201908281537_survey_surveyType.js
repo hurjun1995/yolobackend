@@ -12,7 +12,8 @@ module.exports = {
           primaryKey: true
         },
         type: {
-          type: Sequelize.STRING
+          type: Sequelize.STRING(40),
+          unique: true
         }
       })
       .then(() => {
