@@ -11,20 +11,21 @@ module.exports = {
             primaryKey: true
           },
           type: {
-            type: Sequelize.TEXT
+            type: Sequelize.STRING(30),
+            unique: true
           }
         })
         .then(() => {
-            return queryInterface.addColumn(
-                "account",
-                "account_type_id", {
-                    type: Sequelize.TINYINT,
-                    references: {
-                        model: "account_type",
-                        key: "id"
-                    }
-                })
-        });
+          return queryInterface.addColumn(
+              "account",
+              "account_type_id", {
+                  type: Sequelize.TINYINT,
+                  references: {
+                      model: "account_type",
+                      key: "id"
+                  }
+              })
+        })
     },
     down(queryInterface, _) {
       return queryInterface

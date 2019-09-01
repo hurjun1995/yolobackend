@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true
         },
         type: {
-            type: DataTypes.TEXT
+            type: DataTypes.STRING(30),
+            unique: true
         }
       },
       {
