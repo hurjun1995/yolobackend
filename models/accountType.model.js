@@ -3,12 +3,12 @@ module.exports = (sequelize, DataTypes) => {
       'account_type',
       {
         id: {
-            type: Sequelize.TINYINT,
+            type: DataTypes.TINYINT,
             autoIncrement: true,
             primaryKey: true
         },
         type: {
-            type: Sequelize.TEXT
+            type: DataTypes.TEXT
         }
       },
       {
