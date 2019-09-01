@@ -10,7 +10,7 @@ module.exports = {
             autoIncrement: true,
             primaryKey: true
           },
-          text: {
+          type: {
             type: Sequelize.TEXT
           }
         })

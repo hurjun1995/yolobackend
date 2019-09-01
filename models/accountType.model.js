@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true,
             primaryKey: true
         },
-        text: {
+        type: {
             type: Sequelize.TEXT
         }
       },
